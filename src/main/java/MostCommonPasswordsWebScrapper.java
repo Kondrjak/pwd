@@ -1,6 +1,27 @@
+import java.io.IOException;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 public class MostCommonPasswordsWebScrapper {
-    public static String[] getMostCommonPasswords(){
+    public static void main(String[] args) {
+        try {
+            String[] x = getMostCommonPasswords();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static String[] getMostCommonPasswords() throws IOException {
+        Document doc = Jsoup.connect("https://nordpass.com/de/most-common-passwords-list/").get();
+        String title = doc.title();
+        Elements links = doc.select("a[href]");
+
+        for (Element link: links){
+            System.out.println(link.attr("href"));
+            System.out.println(link.text());
+        }
+
         return new String[] {"not","ready","yet"};
     }
 }

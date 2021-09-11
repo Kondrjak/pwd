@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 /***
  * Class Password
  */
@@ -51,24 +53,24 @@ public class Password {
      * und 50% danach ob Groß-, Kleinbuchstaben, Zahlen oder Sonderzeichen enthalten sind.
      * @return
      */
-<<<<<<< HEAD
     public int getScore(){
         if (!this.valid){
             return 0;
-=======
-    public double getScore(){
-        if (!this.valid) {
-            return 0.d;
         }else if(this.isOneOfTheMostCommonPasswords()){
-            return -1.d;
->>>>>>> 106ccd8043908371636fc335e56d1c87af65b88d
+            return -1;
         } else {
             return (int) (100.*(getLenScore()+getDiversityScore()));
         }
     }
 
     private boolean isOneOfTheMostCommonPasswords() {
-        String[] mostCommonPasswords = MostCommonPasswordsWebScrapper.getMostCommonPasswords();
+        String[] mostCommonPasswords = new String[0];
+        // webscrapping might fail
+        try {
+            mostCommonPasswords = MostCommonPasswordsWebScrapper.getMostCommonPasswords();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         for (String commonPassword: mostCommonPasswords){
             if (password==commonPassword) return true;
         }
