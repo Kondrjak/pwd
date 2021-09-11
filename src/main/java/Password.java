@@ -1,13 +1,20 @@
+/***
+ * Class Password
+ */
 public class Password {
+    // Object variables
     String password;
     boolean valid;
 
-    static int minLen = 8;
+    // Class variables (start with static)
+    static int minLen = 6;
     static int maxLen = 32;
 
     static char[] abc = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
     static char[] ABC = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+    // next Variable starts with the Letter O, can't start with a number of course!
     static char[] O12 = {'0','1','2','3','4','5','6','7','8','9'};
+    // special characters are all non-Number and non-Letter character
     static char[] SimpleChars = (abc.toString() + ABC.toString() + O12.toString()).toCharArray();
 
     /***
@@ -15,8 +22,11 @@ public class Password {
      ***/
     public Password(String password) {
         this.password = password;
+        // invalidate if too short
         valid  = (password.length() >= minLen);
+        // invalidate if too long
         valid &= (password.length() <= maxLen);
+        // invalidate if blanks were used
         valid &= !(this.password.contains(" "));
     }
 
@@ -41,12 +51,28 @@ public class Password {
      * und 50% danach ob Groß-, Kleinbuchstaben, Zahlen oder Sonderzeichen enthalten sind.
      * @return
      */
+<<<<<<< HEAD
     public int getScore(){
         if (!this.valid){
             return 0;
+=======
+    public double getScore(){
+        if (!this.valid) {
+            return 0.d;
+        }else if(this.isOneOfTheMostCommonPasswords()){
+            return -1.d;
+>>>>>>> 106ccd8043908371636fc335e56d1c87af65b88d
         } else {
             return (int) (100.*(getLenScore()+getDiversityScore()));
         }
+    }
+
+    private boolean isOneOfTheMostCommonPasswords() {
+        String[] mostCommonPasswords = MostCommonPasswordsWebScrapper.getMostCommonPasswords();
+        for (String commonPassword: mostCommonPasswords){
+            if (password==commonPassword) return true;
+        }
+        return false;
     }
 
 
