@@ -45,7 +45,7 @@ public class Password {
         if (!this.valid){
             return 0.d;
         } else {
-            return getLenScore()+getDiversityScore();
+            return (int) (100.*(getLenScore()+getDiversityScore()));
         }
     }
 
@@ -70,14 +70,19 @@ public class Password {
      * @return
      */
     private double getDiversityScore(){
-        return (5*this.hasUppercase()+5*this.hasLowercase()+2*this.hasNumbers()+8*this.hasSpecial())/40.;
+        return (5*this.hasUpperCase()+5*this.hasLowerCase()+2*this.hasNumbers()+8*this.hasSpecial())/40.;
     }
 
+    /**
+     * Checks if one of the given chars is contained in the password
+     * @param charArray - given chars
+     * @return double - 1. if contained, 0. if not
+     */
     private double hasOneOf(char[] charArray) {
         for(char c: password.toCharArray()) {
             for(char d: charArray){
                 if(c==d){
-                    // upper case letter found
+                    // char found
                     return 1.;
                 }
             }
@@ -85,18 +90,35 @@ public class Password {
         return 0.;
     }
 
+    /**
+     * Checks if the password contains any number.
+     * @return double - 1. if number is present, 0. if no number is present
+     */
     private double hasNumbers() {
         return this.hasOneOf(O12);
     }
 
-    private double hasUppercase() {
+    /**
+     * Checks if the password contains any upper case letter.
+     * @return double - 1. if upper case letter is present, 0. if no upper case letter is present
+     */
+    private double hasUpperCase() {
         return this.hasOneOf(ABC);
     }
 
-    private double hasLowercase() {
+    /**
+     * Checks if the password contains any lower case letter.
+     * @return double - 1. if upper case letter is present, 0. if no upper case letter is present
+     */
+    private double hasLowerCase() {
         return this.hasOneOf(abc);
     }
 
+
+    /**
+     * Checks if the password contains any special character.
+     * @return double - 1. if special character is present, 0. if no special character is present
+     */
     private double hasSpecial(){
         for(char c: password.toCharArray()){
             boolean charIsSimple = false;
