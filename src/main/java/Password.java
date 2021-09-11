@@ -41,9 +41,9 @@ public class Password {
      * und 50% danach ob Groß-, Kleinbuchstaben, Zahlen oder Sonderzeichen enthalten sind.
      * @return
      */
-    public double getScore(){
+    public int getScore(){
         if (!this.valid){
-            return 0.d;
+            return 0;
         } else {
             return (int) (100.*(getLenScore()+getDiversityScore()));
         }
