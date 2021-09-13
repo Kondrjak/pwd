@@ -5,6 +5,10 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class MostCommonPasswordsWebScrapper {
+    static String nordpassMostCommonPasswordsURL =
+            "https://nordpass.com/de/most-common-passwords-list/";
+
+    //TODO: delete
     public static void main(String[] args) {
         try {
             String[] x = getMostCommonPasswords();
@@ -12,8 +16,10 @@ public class MostCommonPasswordsWebScrapper {
             e.printStackTrace();
         }
     }
+
+    //TODO: develop
     public static String[] getMostCommonPasswords() throws IOException {
-        Document doc = Jsoup.connect("https://nordpass.com/de/most-common-passwords-list/").get();
+        Document doc = Jsoup.connect(nordpassMostCommonPasswordsURL).get();
         String title = doc.title();
         Elements links = doc.select("a[href]");
 
